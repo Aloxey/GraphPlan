@@ -60,6 +60,8 @@ class PlanGraphLevel(object):
     self.actionLayer.addAction(action) adds action to the current action layer
     """
     allActions = PlanGraphLevel.actions
+    "*** YOUR CODE HERE ***"
+
     for action in allActions:
       if previousPropositionLayer.allPrecondsInLayer(action):
         self.actionLayer.addAction(action)
@@ -211,8 +213,9 @@ def mutexPropositions(prop1, prop2, mutexActions):
   You might want to use this function:
   prop1.getProducers() returns the list of all the possible actions in the layer that have prop1 on their add list
   """
-  for p in prop1.getProducers():
-    for q in prop2.getProducers():
-      if not Pair(p, q) in mutexActions:
+  "*** YOUR CODE HERE ***"
+  for p1 in prop1.getProducers():
+    for p2 in prop2.getProducers():
+      if not Pair(p1, p2) in mutexActions:
         return False
   return True
