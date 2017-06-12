@@ -212,12 +212,12 @@ def independentPair(a1, a2):
   """
   "*** YOUR CODE HERE ***"
 
-  for pre in a1.getPre():
-    if a2.isNegEffect(pre):
+  for pre in a1.getDelete():
+    if a2.isPreCond(pre) or a2.isPosEffect(pre):
       return False
 
-  for add in a1.getAdd():
-    if a2.isNegEffect(add):
+  for p in a2.getDelete():
+    if a1.isPreCond(p) or a1.isPosEffect(p):
       return False
 
   return True

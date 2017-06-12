@@ -191,11 +191,16 @@ def haveCompetingNeeds(a1, a2, mutexProps):
   Hint: for propositions p  and q, the command  "Pair(p, q) in mutexProps"
         returns true if p and q are mutex in the previous level
   """
-  for p in a1.getAdd():
-    for q in a2.getAdd():
-      if Pair(p, q) in mutexProps:
-        return True
+  "*** YOUR CODE HERE ***"
+
+  # runs over all the pres ib a1 abd a2 abd checks fir each if they have competing needs
+  for p1 in a1.getPre():
+    for p2 in a2.getPre():
+        if Pair(p1, p2) in mutexProps:
+          return True
   return False
+
+
 
 		
 def mutexPropositions(prop1, prop2, mutexActions):
