@@ -58,16 +58,15 @@ class PlanGraphLevel(object):
     previousPropositionLayer.isMutex(prop1, prop2) returns true if prop1 and prop2 are mutex at the previous propositions layer
     previousPropositionLayer.allPrecondsInLayer(action) returns true if all the preconditions of action are in the previous propositions layer
     self.actionLayer.addAction(action) adds action to the current action layer
-    """ 
+    """
     allActions = PlanGraphLevel.actions
-    "*** YOUR CODE HERE ***"
-    allActions = PlanGraphLevel.actions
-
     for action in allActions:
-      if previousPropositionLayer.allPrecondsInLayer(action) and \
-              not pre_contains_pairwise_mutex(action, previousPropositionLayer):
+      if previousPropositionLayer.allPrecondsInLayer(action):
         self.actionLayer.addAction(action)
-    
+
+
+
+
   def updateMutexActions(self, previousLayerMutexProposition):
     """
     Updates the mutex list in self.actionLayer,
@@ -192,24 +191,11 @@ def haveCompetingNeeds(a1, a2, mutexProps):
   Hint: for propositions p  and q, the command  "Pair(p, q) in mutexProps"
         returns true if p and q are mutex in the previous level
   """
-  "*** YOUR CODE HERE ***"
-  
-  for action_one in a1.getPre():
-    for action_two in a2.getPre():
-      if Pair(action_one, action_two) in mutexProps:
+  for p in a1.getAdd():
+    for q in a2.getAdd():
+      if Pair(p, q) in mutexProps:
         return True
   return False
-
-
-""" I don't kmow what is it for"""
-def pre_contains_pairwise_mutex(action, previous_proposition_layer):
-    for pre1 in action.getPre():
-        for pre2 in action.getPre():
-            if pre1 != pre2 and\
-                    previous_proposition_layer.isMutex(pre1, pre2):
-                return True
-    return False
-
 
 		
 def mutexPropositions(prop1, prop2, mutexActions):
@@ -220,10 +206,8 @@ def mutexPropositions(prop1, prop2, mutexActions):
   You might want to use this function:
   prop1.getProducers() returns the list of all the possible actions in the layer that have prop1 on their add list
   """
-  "*** YOUR CODE HERE ***"
-  for action_1 in prop1.getProducers():
-    for action_2 in prop2.getProducers():
-      if not Pair(action_1, action_2) in mutexActions:
+  for p in prop1.getProducers():
+    for q in prop2.getProducers():
+      if not Pair(p, q) in mutexActions:
         return False
-
   return True

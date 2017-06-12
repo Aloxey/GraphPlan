@@ -212,34 +212,6 @@ def independentPair(a1, a2):
   """
   "*** YOUR CODE HERE ***"
 
-  '''p = a1, a2
-  for i in range(2):
-    for pre in p[0].getPre():
-      print(pre)
-      if p[1].isNegEffect(pre):
-        return False
-
-    for added in p[0].getAdd():
-      if p[1].isNegEffect(added):
-        return False
-    p = a2, a1
-
-  return True'''
-
-  '''if a1 == a2:
-    return True
-  for p in a1.getDelete():
-    # Check if a1 deletes precondition of a2
-    # or if a1 deletes a positive effect of a2
-    if a2.isPreCond(p) or a2.isPosEffect(p):
-      return False
-  for p in a2.getDelete():
-    # Check if a2 deletes precondition of a1
-    # or if a2 deletes a positive effect of a1
-    if a1.isPreCond(p) or a1.isPosEffect(p):
-      return False
-  return True'''
-
   for pre in a1.getPre():
     if a2.isNegEffect(pre):
       return False
@@ -252,8 +224,6 @@ def independentPair(a1, a2):
 
 
 
-
-    
 if __name__ == '__main__':  
   import sys
   import time
