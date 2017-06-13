@@ -61,7 +61,6 @@ class PlanGraphLevel(object):
     """
     allActions = PlanGraphLevel.actions
     "*** YOUR CODE HERE ***"
-
     for action in allActions:
       if previousPropositionLayer.allPrecondsInLayer(action):
         self.actionLayer.addAction(action)
@@ -81,7 +80,6 @@ class PlanGraphLevel(object):
     """
     currentLayerActions = self.actionLayer.getActions()
     "*** YOUR CODE HERE ***"
-
     for a1 in currentLayerActions:
       for a2 in currentLayerActions:
         if a1 != a2 and mutexActions(a1, a2, previousLayerMutexProposition):
@@ -154,7 +152,6 @@ class PlanGraphLevel(object):
     previousLayerMutexProposition = previousPropositionLayer.getMutexProps()
 
     "*** YOUR CODE HERE ***"
-
     self.updateActionLayer(previousPropositionLayer)
     self.updateMutexActions(previousLayerMutexProposition)
 
@@ -193,14 +190,11 @@ def haveCompetingNeeds(a1, a2, mutexProps):
         returns true if p and q are mutex in the previous level
   """
   "*** YOUR CODE HERE ***"
-
-  # runs over all the pres ib a1 abd a2 abd checks fir each if they have competing needs
   for p1 in a1.getPre():
     for p2 in a2.getPre():
         if Pair(p1, p2) in mutexProps:
           return True
   return False
-
 
 
 		

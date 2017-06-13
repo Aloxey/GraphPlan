@@ -4,29 +4,23 @@ def createDomainFile(domainFileName, n):
     domainFile = open(domainFileName, 'w')  # use domainFile.write(str) to write to domainFile
     "*** YOUR CODE HERE ***"
 
-    # Propositions
     s = "Propositions:\n"
 
-    # clear peg
     for p in pegs:
         s += "clear " + p + " "
 
-    # disk on peg
     for disk in range(n):
         for p in pegs:
             s += "disk " + str(disk) + "on peg " + p + " "
 
-    # top disk
     for disk in range(n):
         for p in pegs:
             s += "disk " + str(disk) + "on top " + p + " "
 
-    # bottom disk
     for disk in range(n):
         for p in pegs:
             s += "disk " + str(disk) + "on bottom " + p + " "
 
-    # disk on disk
     for disk1 in range(n):
         for disk2 in range(n):
             if disk1 < disk2:
@@ -148,7 +142,6 @@ def createProblemFile(problemFileName, n):
     problemFile = open(problemFileName, 'w')  # use problemFile.write(str) to write to problemFile
 
     "*** YOUR CODE HERE ***"
-
     s = "Initial state: "
     for disk in range(n):
         if disk + 1 < n:
