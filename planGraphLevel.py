@@ -130,8 +130,7 @@ class PlanGraphLevel(object):
     mutexPropositions(prop1, prop2, currentLayerMutexActions) returns true if prop1 and prop2 are mutex in the current layer
     self.propositionLayer.addMutexProp(prop1, prop2) adds the pair (prop1, prop2) to the mutex list of the current layer
     """
-    currentLayerPropositions = self.propositionLayer.getPropositions()
-    currentLayerMutexActions =  self.actionLayer.getMutexActions()
+
     "*** YOUR CODE HERE ***"
     currentLayerPropositions = self.propositionLayer.getPropositions()
     currentLayerMutexActions = self.actionLayer.getMutexActions()
@@ -155,6 +154,7 @@ class PlanGraphLevel(object):
     previousLayerMutexProposition = previousPropositionLayer.getMutexProps()
 
     "*** YOUR CODE HERE ***"
+
     self.updateActionLayer(previousPropositionLayer)
     self.updateMutexActions(previousLayerMutexProposition)
 
