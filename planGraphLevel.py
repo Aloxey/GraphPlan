@@ -81,11 +81,12 @@ class PlanGraphLevel(object):
     """
     currentLayerActions = self.actionLayer.getActions()
     "*** YOUR CODE HERE ***"
-    for action1 in currentLayerActions:
-      for action2 in currentLayerActions:
-        if action1 != action2 and \
-                mutexActions(action1, action2, previousLayerMutexProposition):
-          self.actionLayer.addMutexActions(action1, action2)
+
+    for a1 in currentLayerActions:
+      for a2 in currentLayerActions:
+        if a1 != a2 and mutexActions(a1, a2, previousLayerMutexProposition):
+          if Pair(a1, a2) not in self.actionLayer.getMutexActions():
+            self.actionLayer.addMutexActions(a1, a2)
 
 
     
@@ -105,6 +106,7 @@ class PlanGraphLevel(object):
     """
     currentLayerActions = self.actionLayer.getActions()
     "*** YOUR CODE HERE ***"
+
     props_dict = dict()
     for action in currentLayerActions:
       for add_props in action.getAdd():
@@ -141,8 +143,6 @@ class PlanGraphLevel(object):
 
 
 
-
-    
   def expand(self, previousLayer):
     """
     Your algorithm should work as follows:

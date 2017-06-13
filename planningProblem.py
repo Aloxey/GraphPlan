@@ -27,16 +27,7 @@ class PlanningProblem():
         self.createNoOps()  # creates noOps that are used to propagate existing propositions from one layer to the next
         PlanGraphLevel.setActions(self.actions)
         PlanGraphLevel.setProps(self.propositions)
-
-
-
-        #self.level = PlanGraphLevel()
-
-
         self._expanded = 0
-
-
-
 
     def getStartState(self):
         "*** YOUR CODE HERE ***"
@@ -48,9 +39,6 @@ class PlanningProblem():
     """
         "*** YOUR CODE HERE ***"
         return not self.goalStateNotInPropLayer(state)
-
-
-
 
     def getSuccessors(self, state):
         """   
@@ -65,22 +53,21 @@ class PlanningProblem():
     """
         self._expanded += 1
         "*** YOUR CODE HERE ***"
-        successors = []
+        sucs = []
 
         for action in self.actions:
-            if action.allPrecondsInList(state) and not action.isNoOp():
-                new_props = []
-                for prop in state:
-                    if not action.isNegEffect(prop):
-                        new_props.append(prop)
+            if not action.isNoOp() and action.allPrecondsInList(state):
+                pros = []
+                for pro in state:
+                    if not action.isNegEffect(pro):
+                        pros.append(pro)
+                for add in action.getAdd():
+                    if add not in pros:
+                        pros.append(add)
+                sucs.append((pros, action, 1))
 
-                for added in action.getAdd():
-                    if added not in new_props:
-                        new_props.append(added)
+        return sucs
 
-                successors.append((new_props, action, 1))
-
-        return successors
 
 
 
@@ -126,24 +113,23 @@ def maxLevel(state, problem):
   pgInit.setPropositionLayer(propLayerInit)   #update the new plan graph level with the the proposition layer
   """
     "*** YOUR CODE HERE ***"
+
+
+    propLayerInit = PropositionLayer()
+    for prop in state:
+        propLayerInit.addProposition(prop)
+    pgInit = PlanGraphLevel()
+    pgInit.setPropositionLayer(propLayerInit)
+
     level = 0
     graph = []
-
-    initial_prop_layer = PropositionLayer()
-    for prop in state:
-        initial_prop_layer.addProposition(prop)
-
-    curr_graph_level = PlanGraphLevel()
-    curr_graph_level.setPropositionLayer(initial_prop_layer)
-    graph.append(curr_graph_level)
+    graph.append(pgInit)
 
     while not problem.isGoalState(graph[level].getPropositionLayer().getPropositions()):
-        if isFixed(graph, level):
-            return float('inf')
         level += 1
-        next_level = PlanGraphLevel()
-        next_level.expandWithoutMutex(graph[level-1])
-        graph.append(next_level)
+        pgNext = PlanGraphLevel()
+        pgNext.expandWithoutMutex(graph[level-1])
+        graph.append(pgNext)
 
     return level
 
