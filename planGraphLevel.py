@@ -107,19 +107,19 @@ class PlanGraphLevel(object):
     currentLayerActions = self.actionLayer.getActions()
     "*** YOUR CODE HERE ***"
 
-    props_dict = dict()
-    for action in currentLayerActions:
-      for add_props in action.getAdd():
-        if add_props.getName() not in props_dict:
-          props_dict[add_props.getName()] = [action]
-        else:
-          props_dict[add_props.getName()] = \
-            props_dict[add_props.getName()] + [action]
+    props = dict()
 
-    for key in props_dict:
-      prop_temp = Proposition(key)
-      prop_temp.setProducers(props_dict[key])  # takes care of adding procedure
-      self.propositionLayer.addProposition(prop_temp)
+    for action in currentLayerActions:
+      for pro in action.getAdd():
+        if pro.getName() not in props:
+          props[pro.getName()] = [action]
+        else:
+          props[pro.getName()] = props[pro.getName()] + [action]
+
+    for pro in props:
+      prop = Proposition(pro)
+      prop.setProducers(props[pro])
+      self.propositionLayer.addProposition(prop)
 
 
     
@@ -137,8 +137,7 @@ class PlanGraphLevel(object):
     currentLayerMutexActions = self.actionLayer.getMutexActions()
     for prop1 in currentLayerPropositions:
       for prop2 in currentLayerPropositions:
-        if mutexPropositions(prop1, prop2, currentLayerMutexActions) \
-                and prop1 != prop2:
+        if mutexPropositions(prop1, prop2, currentLayerMutexActions) and prop1 != prop2:
           self.propositionLayer.addMutexProp(prop1, prop2)
 
 
