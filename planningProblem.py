@@ -140,32 +140,28 @@ def levelSum(state, problem):
   If the goal is not reachable from the state your heuristic should return float('inf')
   """
     "*** YOUR CODE HERE ***"
+    propLayerInit = PropositionLayer()
+    for prop in state:
+        propLayerInit.addProposition(prop)
+        pgInit = PlanGraphLevel()
+        pgInit.setPropositionLayer(propLayerInit)
+
     level = 0
     sum = 0
     graph = []
     goals = [goal for goal in problem.goal]
-
-    initial_prop_layer = PropositionLayer()
-    for prop in state:
-        initial_prop_layer.addProposition(prop)
-
-    initial_level = PlanGraphLevel()
-    initial_level.setPropositionLayer(initial_prop_layer)
-    graph.append(initial_level)
+    graph.append(pgInit)
 
     while len(goals) > 0:
-        if isFixed(graph, level):
-            return float('inf')
-
         for goal in goals:
             if goal in graph[level].getPropositionLayer().getPropositions():
                 sum += level
                 goals.remove(goal)
 
         level += 1
-        next_level = PlanGraphLevel()
-        next_level.expandWithoutMutex(graph[level-1])
-        graph.append(next_level)
+        pgNext = PlanGraphLevel()
+        pgNext.expandWithoutMutex(graph[level-1])
+        graph.append(pgNext)
 
     return sum
 

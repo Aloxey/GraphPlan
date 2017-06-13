@@ -42,7 +42,6 @@ def createDomainFile(domainFileName, n):
                         s += "Name: move disk " + str(disk1) + " from disk " + str(
                             disk2) + " from peg " + from_peg + " to bottom " + to_peg + "\n"
 
-                        # pre
                         s += "pre: "
                         s += "disk " + str(disk1) + "on disk " + str(disk2) + " "
                         s += "disk " + str(disk1) + "on top " + from_peg + " "
@@ -50,14 +49,12 @@ def createDomainFile(domainFileName, n):
                         s += "disk " + str(disk2) + "on peg " + from_peg + " "
                         s += "clear " + to_peg + "\n"
 
-                        # add
                         s += "add: "
                         s += "disk " + str(disk1) + "on top " + to_peg + " "
                         s += "disk " + str(disk1) + "on bottom " + to_peg + " "
                         s += "disk " + str(disk1) + "on peg " + to_peg + " "
                         s += "disk " + str(disk2) + "on top " + from_peg + "\n"
 
-                        # delete
                         s += "delete: "
                         s += "disk " + str(disk1) + "on disk " + str(disk2) + " "
                         s += "disk " + str(disk1) + "on top " + from_peg + " "
@@ -72,7 +69,6 @@ def createDomainFile(domainFileName, n):
                         s += "Name: move disk " + str(disk1) + " from bottom " + from_peg + " to disk " + str(
                             disk2) + " on peg " + to_peg + "\n"
 
-                        # pre
                         s += "pre: "
                         s += "disk " + str(disk1) + "on peg " + from_peg + " "
                         s += "disk " + str(disk1) + "on top " + from_peg + " "
@@ -80,14 +76,12 @@ def createDomainFile(domainFileName, n):
                         s += "disk " + str(disk2) + "on peg " + to_peg + " "
                         s += "disk " + str(disk2) + "on top " + to_peg + "\n"
 
-                        # adds
                         s += "add: "
                         s += "disk " + str(disk1) + "on top " + to_peg + " "
                         s += "disk " + str(disk1) + "on disk " + str(disk2) + " "
                         s += "disk " + str(disk1) + "on peg " + to_peg + " "
                         s += "clear " + from_peg + "\n"
 
-                        # deletes
                         s += "delete: "
                         s += "disk " + str(disk1) + "on peg " + from_peg + " "
                         s += "disk " + str(disk1) + "on top " + from_peg + " "
@@ -100,21 +94,18 @@ def createDomainFile(domainFileName, n):
                 if from_peg != to_peg:
                     s += "Name: move disk " + str(disk) + " from bottom " + from_peg + " to bottom " + to_peg + "\n"
 
-                    # pre
                     s += "pre: "
                     s += "disk " + str(disk) + "on peg " + from_peg + " "
                     s += "disk " + str(disk) + "on top " + from_peg + " "
                     s += "disk " + str(disk) + "on bottom " + from_peg + " "
                     s += "clear " + to_peg + "\n"
 
-                    # add
                     s += "add: "
                     s += "disk " + str(disk) + "on peg " + to_peg + " "
                     s += "disk " + str(disk) + "on top " + to_peg + " "
                     s += "disk " + str(disk) + "on bottom " + to_peg + " "
                     s += "clear " + from_peg + "\n"
 
-                    # delete
                     s += "delete: "
                     s += "disk " + str(disk) + "on peg " + from_peg + " "
                     s += "disk " + str(disk) + "on top " + from_peg + " "
@@ -130,7 +121,6 @@ def createDomainFile(domainFileName, n):
                             s += "Name: move disk " + str(disk1) + " from disk " + str(
                                 disk2) + " from peg " + from_peg + " to disk " + str(disk3) + "on peg " + to_peg + "\n"
 
-                            # pre
                             s += "pre: "
                             s += "disk " + str(disk1) + "on_disk " + str(disk2) + " "
                             s += "disk " + str(disk1) + "on_top " + from_peg + " "
@@ -139,14 +129,12 @@ def createDomainFile(domainFileName, n):
                             s += "disk " + str(disk3) + "on_top " + to_peg + " "
                             s += "disk " + str(disk3) + "on peg " + to_peg + "\n"
 
-                            # add
                             s += "add: "
                             s += "disk_" + str(disk1) + "on_top_" + to_peg + " "
                             s += "disk_" + str(disk1) + "on_peg_" + to_peg + " "
                             s += "disk_" + str(disk1) + "on_disk_" + str(disk3) + " "
                             s += "disk_" + str(disk2) + "on_top_" + from_peg + "\n"
 
-                            # delete
                             s += "delete: "
                             s += "disk_" + str(disk1) + "on_disk_" + str(disk2) + " "
                             s += "disk_" + str(disk1) + "on_top_" + from_peg + " "
@@ -157,13 +145,11 @@ def createDomainFile(domainFileName, n):
 
 
 def createProblemFile(problemFileName, n):
-    numbers = list(range(n))  # [0,...,n-1]
-    pegs = ['a', 'b', 'c']
     problemFile = open(problemFileName, 'w')  # use problemFile.write(str) to write to problemFile
 
     "*** YOUR CODE HERE ***"
 
-    s = "Begin state: "
+    s = "Initial state: "
     for disk in range(n):
         if disk + 1 < n:
             s += "disk " + str(disk) + "on peg a "
